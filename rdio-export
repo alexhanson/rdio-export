@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+import rdioexport
+import webbrowser
+
+if __name__ == '__main__':
+	credentials = rdioexport.get_credentials_from_input()
+	rdio = rdioexport.get_rdio_client(credentials)
+	rdio.begin_authentication()
+	url, device_code = rdio.begin_authentication()
+
+	print "Please enter device code {} on {}".format(device_code, url)
+	webbrowser.open(url)
+
+	rdio.complete_authentication()
+	print rdio.call('currentUser')
