@@ -56,6 +56,5 @@ if __name__ == '__main__':
 	for album in collection:
 		num_albums += 1
 		num_tracks += len(album['trackKeys'])
-		print u"Still counting: {} albums with {} tracks".format(num_albums, num_tracks)
 
-	print u"Done counting: {} albums with {} tracks".format(num_albums, num_tracks)
+	print u"Collection size: {} albums with {} tracks".format(num_albums, num_tracks)
