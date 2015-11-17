@@ -1,6 +1,34 @@
 #!/usr/bin/env python
+import json
 import rdioexport
 
 if __name__ == '__main__':
 	rdio = rdioexport.client.get_rdio_client()
-	print rdio.call('currentUser')
+	current_user_key = rdio.call('currentUser')['key']
+
+	num_albums = len(rdio.call('getAlbumsInCollection',
+		user=current_user_key,
+		extras=json.dumps([
+			{'field': '*', 'exclude': True},
+		])
+	))
+
+	start = 0
+	batch_size = 100
+	while start < num_albums:
+		albums = rdio.call('getAlbumsInCollection',
+			user=current_user_key,
+			sort='dateAdded',
+			start=start,
+			count=min(batch_size, num_albums-start),
+			extras=json.dumps([
+				{'field': '*', 'exclude': True},
+				{'field': 'name'},
+				{'field': 'artist'},
+			])
+		)
+
+		for album in albums:
+			print u"{} - {}".format(album['artist'], album['name'])
+
+		start += batch_size
