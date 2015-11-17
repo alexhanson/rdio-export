@@ -2,7 +2,7 @@ rdio-export
 ==============
 Export Rdio collections and playlists in JSON format. **This tool is a work in progress, lacking in functionality and documentation.**
 
-Since [Rdio is shutting down soon](http://press.pandora.com/phoenix.zhtml?c=251764&p=irol-newsArticle&ID=2112860), I also plan to make a tool to import Rdio collections and playlists for another streaming service. Since [Spotify has a public API](https://developer.spotify.com/), it's a strong contender.
+Since [Rdio is shutting down soon](http://press.pandora.com/phoenix.zhtml?c=251764&p=irol-newsArticle&ID=2112860), I also plan to make a tool to import Rdio collections and playlists into another streaming service. Since [Spotify has a public API](https://developer.spotify.com/), it's a strong contender.
 
 # Using this tool
 `rdio-export` is in active development, but here's how you can run the work-in-progress version:
