@@ -20,7 +20,7 @@ def _get_stored_config():
 	client_state = {}
 
 	if os.path.exists(_CONFIG_PATH):
-		print "Reading configuration from {}".format(_CONFIG_PATH)
+		print u"Reading configuration from {}".format(_CONFIG_PATH)
 		with open(_CONFIG_PATH, 'r') as config_file:
 			config = json.load(config_file)
 			credentials = config.get('credentials', credentials)
@@ -36,11 +36,11 @@ def _add_missing_config(config):
 
 	client_id = credentials.get('client_id', None)
 	if client_id is None:
-		client_id = raw_input("Client ID: ")
+		client_id = raw_input(u"Client ID: ")
 
 	client_secret = credentials.get('client_secret', None)
 	if client_secret is None:
-		client_secret = raw_input("Client secret: ")
+		client_secret = raw_input(u"Client secret: ")
 
 	new_credentials = RdioCredentials(
 		client_id=client_id,
@@ -78,7 +78,7 @@ def get_rdio_client():
 	if needs_auth:
 		rdio.begin_authentication()
 		url, device_code = rdio.begin_authentication()
-		print "Please enter device code {} on {}".format(device_code, url)
+		print u"Please enter device code {} on {}".format(device_code, url)
 		rdio.complete_authentication()
 
 	_set_stored_config(config)
