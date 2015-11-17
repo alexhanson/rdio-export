@@ -68,7 +68,7 @@ def _set_stored_config(config):
         json.dump(config_dict, config_file, indent=True)
 
 
-def get_rdio_client():
+def get_base_rdio_client():
     config = _get_stored_config()
     config = _add_missing_config(config)
     needs_auth = len(config.client_state) == 0
