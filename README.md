@@ -8,7 +8,7 @@ Since [Rdio is shutting down soon](http://press.pandora.com/phoenix.zhtml?c=2517
 `rdio-export` is in active development, but here's how you can run the work-in-progress version:
 
 ## Setting up your Rdio app
-`rdio-export` requires you use your own API access keys to make Rdio requests. [Create an app](https://www.rdio.com/developers/create/) and populate the form. All fields are required, but `rdio-export` doesn't rely on any particular values.
+`rdio-export` requires you use your own API access keys to make Rdio requests. Go to the [Create an app](https://www.rdio.com/developers/create/) page and populate the form. All fields are required, but `rdio-export` doesn't rely on any particular values.
 
 * **App Name:** Anything you want.
 * **Description:** Anything you want.
