@@ -31,6 +31,20 @@ def get_collection_by_album(rdio, current_user_key, batch_size=100):
 		else:
 			start += batch_size
 
+def get_album_data(rdio, album_key):
+	return rdio.call('get',
+		keys=album_key,
+		extras=json.dumps([
+			{'field': '*'},
+			{
+				'field': 'track',
+				'extras': [
+					{'field': '*'},
+				],
+			},
+		]),
+	)
+
 if __name__ == '__main__':
 	rdio = rdioexport.client.get_rdio_client()
 	current_user_key = get_current_user_key(rdio)
