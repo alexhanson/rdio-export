@@ -1,1 +1,2 @@
 -e git://github.com/rdio/rdio-python.git#egg=Rdio
+tox==2.2.1
