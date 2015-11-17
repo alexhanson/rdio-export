@@ -65,7 +65,7 @@ def _set_stored_config(config):
     }
 
     with open(_CONFIG_PATH, 'w') as config_file:
-        json.dump(config_dict, config_file, indent=True)
+        json.dump(config_dict, config_file, indent=4)
 
 
 def get_base_rdio_client():
