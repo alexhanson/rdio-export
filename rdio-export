@@ -2,6 +2,7 @@
 import rdioexport
 import signal
 import sys
+from pprint import pprint
 
 
 def sigint_handler(signal, frame):
@@ -9,9 +10,16 @@ def sigint_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, sigint_handler)
 
-if __name__ == '__main__':
-    rdio = rdioexport.get_rdio_client()
 
+def find_modern_vampires(rdio):
+    modern_vampires = rdio.get_album_data(['a3032651'])['a3032651']
+    print u"Modern Vampires"
+    print u"---------------"
+    pprint(modern_vampires)
+    pprint(rdio.get_track_data(modern_vampires['trackKeys']))
+
+
+def count_collection(rdio):
     collection = rdio.get_collection_by_album()
 
     num_albums = 0
@@ -24,3 +32,8 @@ if __name__ == '__main__':
         num_albums,
         num_tracks,
     )
+
+if __name__ == '__main__':
+    rdio = rdioexport.get_rdio_client()
+    find_modern_vampires(rdio)
+    # count_collection(rdio)
