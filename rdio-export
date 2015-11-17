@@ -2,29 +2,47 @@
 import json
 import rdioexport
 
-if __name__ == '__main__':
-	rdio = rdioexport.client.get_rdio_client()
-	current_user_key = rdio.call('currentUser')['key']
+def get_current_user_key(rdio):
+	return rdio.call('currentUser')['key']
 
+def get_collection_by_album(rdio, current_user_key, batch_size=100):
 	start = 0
-	batch_size = 100
+	result = []
+
 	while True:
-		albums = rdio.call('getAlbumsInCollection',
+		batch = rdio.call('getAlbumsInCollection',
 			user=current_user_key,
 			sort='dateAdded',
 			start=start,
 			count=batch_size,
 			extras=json.dumps([
 				{'field': '*', 'exclude': True},
+				{'field': 'key'},
 				{'field': 'name'},
 				{'field': 'artist'},
+				{'field': 'trackKeys'},
 			])
 		)
 
-		for album in albums:
-			print u"{} - {}".format(album['artist'], album['name'])
+		for album in batch:
+			yield album
 
-		if (len(albums) < batch_size):
+		if (len(batch) < batch_size):
 			break
 		else:
 			start += batch_size
+
+if __name__ == '__main__':
+	rdio = rdioexport.client.get_rdio_client()
+	current_user_key = get_current_user_key(rdio)
+
+	collection = get_collection_by_album(rdio, current_user_key)
+
+	num_albums = 0
+	num_tracks = 0
+	for album in collection:
+		num_albums += 1
+		num_tracks += len(album['trackKeys'])
+		print u"Still counting: {} albums with {} tracks".format(num_albums, num_tracks)
+
+	print u"Done counting: {} albums with {} tracks".format(num_albums, num_tracks)
