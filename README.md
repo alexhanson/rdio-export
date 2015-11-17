@@ -13,8 +13,8 @@ Since [Rdio is shutting down soon](http://press.pandora.com/phoenix.zhtml?c=2517
 * **App Name:** Anything you want.
 * **Description:** Anything you want.
 * **Developer Name:** Anything you want.
-* **URL:** Anything you want. (`http://localhost` works fine)
-* **Redirect URIs:** Anything you want. (`http://localhost` works fine)
+* **URL:** Anything you want — `http://localhost` works fine.
+* **Redirect URIs:** Anything you want — `http://localhost` works fine.
 * **Permissions:** Leave everything unchecked.
 * **Platforms:** Since Python is cross-platform, I selected Windows, Mac, and Linux.
 
