@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 import json
 import rdioexport
+import signal
+import sys
+
+
+def sigint_handler(signal, frame):
+    print "\nQuitting..."
+    sys.exit(0)
+signal.signal(signal.SIGINT, sigint_handler)
 
 
 def get_current_user_key(rdio):
