@@ -23,7 +23,7 @@ When finished, you should have a "Client ID" and "Client Secret" for your app. K
 ## Setting up your dev environment
 1. Clone this repository and `cd` into it.
 1. Using `pip` for Python 2.7, run `pip install -r requirements.txt`
-1. Run `tox -e dev`
+1. Run `tox`
 
 ## Running `rdio-export`
 From within this repository, run this command:
