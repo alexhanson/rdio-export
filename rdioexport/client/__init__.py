@@ -5,12 +5,12 @@ from rdioapi import Rdio
 
 _CONFIG_PATH = os.path.expanduser('~/.rdio-export.json')
 
-RdioConfig = namedtuple('RdioConfig', [
+_RdioConfig = namedtuple('RdioConfig', [
     'credentials',
     'client_state',
 ])
 
-RdioCredentials = namedtuple('RdioCredentials', [
+_RdioCredentials = namedtuple('RdioCredentials', [
     'client_id',
     'client_secret',
 ])
@@ -27,7 +27,7 @@ def _get_stored_config():
             credentials = config.get('credentials', credentials)
             client_state = config.get('client_state', client_state)
 
-    return RdioConfig(
+    return _RdioConfig(
         credentials=credentials,
         client_state=client_state,
     )
@@ -44,12 +44,12 @@ def _add_missing_config(config):
     if client_secret is None:
         client_secret = raw_input(u"Client secret: ")
 
-    new_credentials = RdioCredentials(
+    new_credentials = _RdioCredentials(
         client_id=client_id,
         client_secret=client_secret,
     )
 
-    return RdioConfig(
+    return _RdioConfig(
         credentials=new_credentials,
         client_state=config.client_state,
     )
