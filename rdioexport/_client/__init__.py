@@ -37,19 +37,114 @@ class _RdioExportClient(object):
             else:
                 start += batch_size
 
-    def get_album_data(self, album_key):
+    def get_album_data(self, album_keys):
+        fields = [{'field': '*', 'exclude': True}]
+        fields += map(lambda f: {'field': f}, [
+            'name',
+            # 'type',
+            # 'icon',
+            # 'baseIcon',
+            'url',
+            'artist',
+            # 'artistUrl',
+            'isExplicit',
+            'isClean',
+            'length',
+            'artistKey',
+            'trackKeys',
+            # 'price',
+            # 'canStream',
+            # 'canSample',
+            # 'canTether',
+            # 'shortUrl',
+            # 'embedUrl',
+            'displayDate',
+            'key',
+            # 'releaseDate',
+            'duration',
+            'dynamicIcon',
+            # 'radioKey',
+            # 'popularTracks',
+            # 'artistAvatarIcon',
+            # 'tracks',
+            'isCompilation',
+            # 'streamRegions',
+            # 'hasListened',
+            'dominantColor',
+            # 'icon400',
+            'label',
+            'backgroundImageUrl',
+            # 'iframeUrl',
+            'bigIcon1200',
+            'releaseDateISO',
+            'upcs',
+            # 'bigIcon',
+            # 'iconKey',
+        ])
+
         return self.base_client.call(
             'get',
-            keys=album_key,
-            extras=json.dumps([
-                {'field': '*'},
-                {
-                    'field': 'track',
-                    'extras': [
-                        {'field': '*'},
-                    ],
-                },
-            ]),
+            keys=','.join(album_keys),
+            extras=json.dumps(fields),
+        )
+
+    def get_track_data(self, track_keys):
+        fields = [{'field': '*', 'exclude': True}]
+        fields += map(lambda f: {'field': f}, [
+            'name',
+            'artist',
+            'album',
+            'albumKey',
+            # 'albumUrl',
+            'artistKey',
+            # 'artistUrl',
+            # 'type',
+            # 'length',
+            'duration',
+            'isExplicit',
+            'isClean',
+            'url',
+            # 'baseIcon',
+            'albumArtist',
+            'albumArtistKey',
+            # 'canDownload',
+            # 'canDownloadAlbumOnly',
+            # 'canStream',
+            # 'canTether',
+            # 'canSample',
+            # 'price',
+            # 'shortUrl',
+            # 'embedUrl',
+            'key',
+            # 'gridIcon',
+            # 'icon',
+            # 'icon400',
+            'trackNum',
+            # 'radioKey',
+            # 'radio',
+            # 'dynamicIcon',
+
+            ## Extras ##
+            'isInCollection',
+            # 'streamRegions',
+            'isrcs',
+            # 'backgroundImageUrl',
+            # 'canTetherForRegion',
+            # 'sampleUrl',
+            'isOnCompilation',
+            # 'artistAvatarIcon',
+            'playCount',
+            # 'iframeUrl',
+            # 'bigIcon',
+            # 'iconKey',
+            # 'dominantColor',
+            # 'tetherRegions',
+        ])
+
+        return self.base_client.call(
+            'get',
+            keys=','.join(track_keys),
+            extras=json.dumps(fields),
         )
 
 
