@@ -32,4 +32,4 @@ From within this repository, run this command:
 ./dev/bin/rdio-export
 ```
 
-On your first run, it will run you through an authentication procedure. After that, settings are kept in `~/.rdio-export.json`; if you experience issues, you can delete that file and try again.
+On your first run, the program will guide you through an authentication procedure. After that, settings are kept in `~/.rdio-export.json`; if you experience issues, you can delete that file and try again.
