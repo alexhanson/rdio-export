@@ -18,10 +18,9 @@ def get_collection_by_album(rdio, current_user_key, batch_size=100):
 			extras=json.dumps([
 				{'field': '*', 'exclude': True},
 				{'field': 'key'},
-				{'field': 'name'},
 				{'field': 'artist'},
 				{'field': 'trackKeys'},
-			])
+			]),
 		)
 
 		for album in batch:
