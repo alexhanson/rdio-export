@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import json
 import rdioexport
 import signal
 import sys
@@ -10,59 +9,10 @@ def sigint_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, sigint_handler)
 
-
-def get_current_user_key(rdio):
-    return rdio.call('currentUser')['key']
-
-
-def get_collection_by_album(rdio, current_user_key, batch_size=100):
-    start = 0
-    result = []
-
-    while True:
-        batch = rdio.call(
-            'getAlbumsInCollection',
-            user=current_user_key,
-            sort='dateAdded',
-            start=start,
-            count=batch_size,
-            extras=json.dumps([
-                {'field': '*', 'exclude': True},
-                {'field': 'key'},
-                {'field': 'artist'},
-                {'field': 'trackKeys'},
-            ]),
-        )
-
-        for album in batch:
-            yield album
-
-        if (len(batch) < batch_size):
-            break
-        else:
-            start += batch_size
-
-
-def get_album_data(rdio, album_key):
-    return rdio.call(
-        'get',
-        keys=album_key,
-        extras=json.dumps([
-            {'field': '*'},
-            {
-                'field': 'track',
-                'extras': [
-                    {'field': '*'},
-                ],
-            },
-        ]),
-    )
-
 if __name__ == '__main__':
-    rdio = rdioexport.client.get_rdio_client()
-    current_user_key = get_current_user_key(rdio)
+    rdio = rdioexport.get_rdio_client()
 
-    collection = get_collection_by_album(rdio, current_user_key)
+    collection = rdio.get_collection_by_album()
 
     num_albums = 0
     num_tracks = 0
