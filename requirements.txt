@@ -1,2 +1,3 @@
 git+https://github.com/rdio/rdio-python.git#egg=Rdio
+pep8==1.6.2
 tox==2.2.1
