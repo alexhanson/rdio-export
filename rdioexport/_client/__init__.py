@@ -25,7 +25,6 @@ class _RdioExportClient(object):
                 extras=json.dumps([
                     {'field': '*', 'exclude': True},
                     {'field': 'key'},
-                    {'field': 'artist'},
                     {'field': 'trackKeys'},
                 ]),
             )
