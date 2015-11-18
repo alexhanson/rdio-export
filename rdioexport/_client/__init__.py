@@ -63,6 +63,9 @@ class _RdioExportClient(object):
             # 'releaseDate',
             'duration',
             # 'dynamicIcon',
+
+            # Extras
+
             # 'radioKey',
             'popularTracks',
             # 'artistAvatarIcon',
@@ -124,7 +127,8 @@ class _RdioExportClient(object):
             # 'radio',
             # 'dynamicIcon',
 
-            ## Extras ##
+            # Extras
+
             'isInCollection',
             # 'streamRegions',
             'isrcs',
