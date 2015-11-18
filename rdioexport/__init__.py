@@ -24,21 +24,23 @@ def archive_collection(
     track_count = 0
 
     for collection_album_batch in _split(collection_albums, album_batch_size):
-        album_keys = imap(lambda a: a['albumKey'], collection_album_batch)
+        album_keys = map(lambda a: a['albumKey'], collection_album_batch)
 
-        album_details = rdio.get_album_data(album_keys).values()
-        exporter.write_albums(album_details)
-        album_count += len(album_details)
+        album_dict = rdio.get_album_data(album_keys)
+        album_list = map(lambda k: album_dict[k], album_keys)
+        exporter.write_albums(album_list)
+        album_count += len(album_list)
 
         # We gather details about all tracks on an album -- even the ones that
         # aren't in our collection.
-        track_keys_by_album = imap(lambda a: a['trackKeys'], album_details)
+        track_keys_by_album = map(lambda a: a['trackKeys'], album_list)
         track_keys = chain.from_iterable(track_keys_by_album)
 
         for track_keys_batch in _split(track_keys, track_batch_size):
-            track_details = rdio.get_track_data(track_keys_batch).values()
-            exporter.write_tracks(track_details)
-            track_count += len(track_details)
+            track_dict = rdio.get_track_data(track_keys_batch)
+            track_list = map(lambda k: track_dict[k], track_keys_batch)
+            exporter.write_tracks(track_list)
+            track_count += len(track_list)
 
         print u"Wrote {:,} albums and {:,} tracks so far. Still going...".format(
             album_count,
