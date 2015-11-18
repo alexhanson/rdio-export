@@ -18,7 +18,7 @@ Since [Rdio is shutting down soon](http://press.pandora.com/phoenix.zhtml?c=2517
 * **Permissions:** Leave everything unchecked.
 * **Platforms:** Since Python is cross-platform, I selected Windows, Mac, and Linux.
 
-When finished, you should have a "Client ID" and "Client Secret" for your app. Keep note of these! You can always rediscover them by viewing [your Rdio apps](https://www.rdio.com/developers/your-apps/).
+When finished, you should have a "Client ID" and "Client Secret" for your app. You'll need these values later, but you can always see them again by viewing [your Rdio apps](https://www.rdio.com/developers/your-apps/).
 
 ## Setting up your dev environment
 1. Clone this repository and `cd` into it.
