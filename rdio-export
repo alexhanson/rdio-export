@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import rdioexport
 import signal
+import os
 import sys
+from tempfile import mkdtemp
 
 
 def sigint_handler(signal, frame):
@@ -12,4 +14,11 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 if __name__ == '__main__':
     rdio = rdioexport.get_rdio_client()
-    rdioexport.archive_collection(rdio)
+
+    temp_dirname = mkdtemp()
+    album_filename = os.path.join(temp_dirname, 'albums.jsonl')
+    track_filename = os.path.join(temp_dirname, 'tracks.jsonl')
+    print u"Writing to {}".format(temp_dirname)
+
+    exporter = rdioexport.get_exporter(album_filename, track_filename)
+    rdioexport.archive_collection(rdio, exporter)
