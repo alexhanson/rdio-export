@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 
 
 def sigint_handler(signal, frame):
-    print "\nQuitting..."
+    print u"\nQuitting..."
     sys.exit(0)
 signal.signal(signal.SIGINT, sigint_handler)
 
