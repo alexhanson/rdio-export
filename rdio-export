@@ -2,7 +2,6 @@
 import rdioexport
 import signal
 import sys
-from pprint import pprint
 
 
 def sigint_handler(signal, frame):
