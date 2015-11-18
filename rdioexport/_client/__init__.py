@@ -38,7 +38,17 @@ class _RdioExportClient(object):
                 start += batch_size
 
     def get_album_data(self, album_keys):
-        fields = [{'field': '*', 'exclude': True}]
+        fields = [
+            {'field': '*', 'exclude': True},
+            {
+                'field': 'label',
+                'extras': [
+                    {'field': '*', 'exclude': True},
+                    {'field': 'key'},
+                    {'field': 'name'},
+                ],
+            }
+        ]
         fields += map(lambda f: {'field': f}, [
             'name',
             # 'type',
@@ -75,7 +85,6 @@ class _RdioExportClient(object):
             # 'hasListened',
             'dominantColor',
             # 'icon400',
-            'label',
             # 'backgroundImageUrl',
             # 'iframeUrl',
             'bigIcon1200',
