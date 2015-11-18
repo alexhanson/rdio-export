@@ -11,9 +11,7 @@ class _RdioExportClient(object):
 
     def get_collection_by_album(self, batch_size=100):
         current_user_key = self.get_current_user_key()
-
         start = 0
-        result = []
 
         while True:
             batch = self.base_client.call(
