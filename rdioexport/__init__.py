@@ -38,10 +38,10 @@ def archive_collection(
             exporter.write_tracks(track_details)
             track_count += len(track_details)
 
-        print "Wrote {} albums and {} tracks so far. Still going...".format(
+        print u"Wrote {} albums and {} tracks so far. Still going...".format(
             album_count,
             track_count)
 
-    print "Wrote {} albums and {} tracks. Done!".format(
+    print u"Wrote {} albums and {} tracks. Done!".format(
         album_count,
         track_count)
