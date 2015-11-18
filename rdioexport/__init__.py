@@ -18,20 +18,22 @@ def archive_collection(
         exporter,
         album_batch_size=50,
         track_batch_size=200):
-    albums = rdio.get_collection_by_album()
+    collection_albums = rdio.get_collection_albums()
 
     album_count = 0
     track_count = 0
 
-    for album_batch in _split(albums, album_batch_size):
-        album_keys = imap(lambda a: a['key'], album_batch)
-
-        track_keys_by_album = imap(lambda a: a['trackKeys'], album_batch)
-        track_keys = chain.from_iterable(track_keys_by_album)
+    for collection_album_batch in _split(collection_albums, album_batch_size):
+        album_keys = imap(lambda a: a['albumKey'], collection_album_batch)
 
         album_details = rdio.get_album_data(album_keys).values()
         exporter.write_albums(album_details)
         album_count += len(album_details)
+
+        # We gather details about all tracks on an album -- even the ones that
+        # aren't in our collection.
+        track_keys_by_album = imap(lambda a: a['trackKeys'], album_details)
+        track_keys = chain.from_iterable(track_keys_by_album)
 
         for track_keys_batch in _split(track_keys, track_batch_size):
             track_details = rdio.get_track_data(track_keys_batch).values()

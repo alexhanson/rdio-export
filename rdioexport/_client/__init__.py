@@ -9,7 +9,7 @@ class _RdioExportClient(object):
     def get_current_user_key(self):
         return self.base_client.call('currentUser')['key']
 
-    def get_collection_by_album(self, batch_size=100):
+    def get_collection_albums(self, batch_size=100):
         current_user_key = self.get_current_user_key()
         start = 0
 
@@ -22,7 +22,7 @@ class _RdioExportClient(object):
                 count=batch_size,
                 extras=json.dumps([
                     {'field': '*', 'exclude': True},
-                    {'field': 'key'},
+                    {'field': 'albumKey'},
                     {'field': 'trackKeys'},
                 ]),
             )
