@@ -17,7 +17,7 @@ def archive_collection(
         rdio,
         exporter,
         album_batch_size=50,
-        track_batch_size=200):
+        track_batch_size=100):
     collection_albums = rdio.get_collection_albums()
 
     album_count = 0
