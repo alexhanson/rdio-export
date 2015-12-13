@@ -16,9 +16,15 @@ if __name__ == '__main__':
     rdio = rdioexport.get_rdio_client()
 
     temp_dirname = mkdtemp()
-    album_filename = os.path.join(temp_dirname, 'albums.ndjson')
-    track_filename = os.path.join(temp_dirname, 'tracks.ndjson')
     print u"Writing to {}".format(temp_dirname)
 
-    exporter = rdioexport.get_exporter(album_filename, track_filename)
+    album_filename = os.path.join(temp_dirname, 'albums.ndjson')
+    track_filename = os.path.join(temp_dirname, 'tracks.ndjson')
+    playlist_filename = os.path.join(temp_dirname, 'playlists.ndjson')
+
+    exporter = rdioexport.get_exporter(
+        album_filename,
+        track_filename,
+        playlist_filename)
     rdioexport.archive_collection(rdio, exporter)
+    rdioexport.archive_playlists(rdio, exporter)

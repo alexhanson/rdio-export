@@ -6,15 +6,27 @@ class _RdioExportClient(object):
     def __init__(self, base_client):
         self.base_client = base_client
 
-    def get_current_user_key(self):
-        return self.base_client.call('currentUser')['key']
-
-    def get_collection_albums(self, batch_size=100):
-        current_user_key = self.get_current_user_key()
+    # Method will be called as method(start, batch_size)
+    def _batch_call(self, method, batch_size):
         start = 0
 
         while True:
-            batch = self.base_client.call(
+            batch = method(start, batch_size)
+
+            for item in batch:
+                yield item
+
+            if (len(batch) < batch_size):
+                break
+            else:
+                start += batch_size
+
+    def get_current_user_key(self):
+        return self.base_client.call('currentUser')['key']
+
+    def get_collection_albums(self, current_user_key, batch_size=100):
+        def get_album_batch(start, batch_size):
+            return self.base_client.call(
                 'getAlbumsInCollection',
                 user=current_user_key,
                 sort='dateAdded',
@@ -27,13 +39,8 @@ class _RdioExportClient(object):
                 ]),
             )
 
-            for album in batch:
-                yield album
-
-            if (len(batch) < batch_size):
-                break
-            else:
-                start += batch_size
+        for album in self._batch_call(get_album_batch, batch_size):
+            yield album
 
     def get_album_data(self, album_keys):
         fields = [
@@ -58,7 +65,7 @@ class _RdioExportClient(object):
             'isExplicit',
             'isClean',
             'length',
-            'artistKey',
+            # 'artistKey',
             'trackKeys',
             # 'price',
             # 'canStream',
@@ -102,11 +109,11 @@ class _RdioExportClient(object):
         fields = [{'field': '*', 'exclude': True}]
         fields += map(lambda f: {'field': f}, [
             'name',
-            # 'artist',
+            'artist',
             'album',
             'albumKey',
             # 'albumUrl',
-            'artistKey',
+            # 'artistKey',
             # 'artistUrl',
             # 'type',
             # 'length',
@@ -115,8 +122,8 @@ class _RdioExportClient(object):
             'isClean',
             'url',
             # 'baseIcon',
-            # 'albumArtist',
-            'albumArtistKey',
+            'albumArtist',
+            # 'albumArtistKey',
             # 'canDownload',
             # 'canDownloadAlbumOnly',
             # 'canStream',
@@ -157,6 +164,59 @@ class _RdioExportClient(object):
             keys=','.join(track_keys),
             extras=json.dumps(fields),
         )
+
+    def get_playlist_data(self, current_user_key, batch_size=10):
+        fields = [{'field': '*', 'exclude': True}]
+        fields += map(lambda f: {'field': f}, [
+            'name',
+            'length',
+            # 'type',
+            'url',
+            # 'icon',
+            # 'baseIcon',
+            # 'owner',
+            # 'ownerUrl',
+            # 'ownerKey',
+            # 'ownerIcon',
+            'lastUpdated',
+            # 'shortUrl',
+            # 'embedUrl',
+            'key',
+            # 'dynamicIcon',
+
+            # Extras
+
+            'hasCustomArtwork',
+            # 'canStream',
+            'isPublished',
+            # 'iframeUrl',
+            # 'iconKeys',
+            # 'customIconKey',
+            # 'reasonNotViewable',
+            'description',
+            # 'radioKey',
+            'dominantColor',
+            # 'canTether',
+            # 'icon400',
+            # 'tracks',
+            'trackKeys',
+            'bigIcon1200',
+            # 'isViewable',
+            # 'bigIcon',
+        ])
+
+        def get_playlist_batch(start, batch_size):
+            return self.base_client.call(
+                'getUserPlaylists',
+                user=current_user_key,
+                sort='name',
+                start=start,
+                count=batch_size,
+                extras=json.dumps(fields),
+            )
+
+        for playlist in self._batch_call(get_playlist_batch, batch_size):
+            yield playlist
 
 
 def get_rdio_client():
