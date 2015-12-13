@@ -28,3 +28,5 @@ if __name__ == '__main__':
         playlist_filename)
     rdioexport.archive_collection(rdio, exporter)
     rdioexport.archive_playlists(rdio, exporter)
+
+    print u"Export data written to {}".format(temp_dirname)
