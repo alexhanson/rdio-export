@@ -1,11 +1,11 @@
 rdio-export
 ==============
-Export Rdio collections and playlists in JSON format. **This tool is a work in progress, but it can currently export the albums and tracks in your collection to [newline-delimited JSON](http://ndjson.org/) files.**
+Export Rdio collections and playlists in [newline-delimited JSON](http://ndjson.org/) format.
 
 Galen Knapp is working on a [spotify-import](https://github.com/knappg/spotify-import) project that imports this data into Spotify.
 
 # Using this tool
-`rdio-export` is in active development, but here's how you can run the work-in-progress version:
+`rdio-export` requires a bit of setup. Here's how you do it:
 
 ## Setting up your Rdio app
 `rdio-export` requires you use your own API access keys to make Rdio requests. Go to the [Create an app](https://www.rdio.com/developers/create/) page and populate the form. All fields are required, but `rdio-export` doesn't rely on any particular values.
