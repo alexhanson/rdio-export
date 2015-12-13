@@ -29,4 +29,4 @@ if __name__ == '__main__':
     rdioexport.archive_collection(rdio, exporter)
     rdioexport.archive_playlists(rdio, exporter)
 
-    print u"Export data written to {}".format(temp_dirname)
+    print u"\nExport data written to {}".format(temp_dirname)
