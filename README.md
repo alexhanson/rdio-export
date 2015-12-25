@@ -1,3 +1,6 @@
+**Important:** Rdio has shut down. This project remains available only for reference.
+* * *
+
 rdio-export
 ==============
 Export Rdio collections and playlists in [newline-delimited JSON](http://ndjson.org/) format.
