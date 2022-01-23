@@ -1,4 +1,4 @@
-**Important:** Rdio has shut down. This project remains available only for reference.
+**Archived:** Rdio has shut down. This project remains available only for reference.
 * * *
 
 rdio-export
